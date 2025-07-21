@@ -1,8 +1,10 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import { Heart, ShoppingCart } from "lucide-react"
+
+
 
 const menuItems = [
     {
@@ -64,21 +66,26 @@ const menuItems = [
     },
 ]
 
-
-
 const navButtonStyle = "px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700"
 
 export default function Navbar() {
+    const [openIndex, setOpenIndex] = useState<number | null>(null)
+
     return (
         <nav className="p-4 border-b border-gray-700 bg-gray-900 text-white">
             <ul className="flex items-center gap-6 w-full flex-wrap">
 
                 {/* Left Menu */}
                 {menuItems.map((menu, i) => (
-                    <li className="relative group" key={i}>
+                    <li
+                        className="relative"
+                        key={i}
+                        onMouseEnter={() => setOpenIndex(i)}
+                        onMouseLeave={() => setOpenIndex(null)}
+                    >
                         <button className={navButtonStyle}>{menu.label}</button>
-                        {menu.items.length > 0 && (
-                            <div className="absolute hidden group-hover:block bg-white shadow-lg p-4 mt-2 z-10 w-[300px] text-black rounded-md">
+                        {openIndex === i && (
+                            <div className="absolute top-full left-0 bg-white shadow-lg p-4 z-10 w-[300px] text-black rounded-md">
                                 <ul className="space-y-2">
                                     {menu.items.map(([href, child], idx) => (
                                         <ListItem key={idx} href={href}>
@@ -120,19 +127,18 @@ export default function Navbar() {
                         <option value="popular">Most Popular</option>
                     </select>
 
-                    {/* Profile Menu */}
-                    <li className="relative group">
-                        <button className={navButtonStyle}>My Profile</button>
-                        <div className="absolute right-0 hidden group-hover:block bg-white text-black shadow-lg mt-2 z-20 w-56 rounded-md p-2">
-                            <p className="text-sm font-medium px-2 py-1">Account</p>
-                            <ul className="text-sm space-y-1">
-                                <li className="hover:bg-gray-100 px-2 py-1 rounded">My Profile</li>
-                                <li className="hover:bg-gray-100 px-2 py-1 rounded">Settings</li>
-                                <li className="hover:bg-gray-100 px-2 py-1 rounded">Support</li>
-                                <li className="hover:bg-gray-100 px-2 py-1 rounded text-red-600">Logout</li>
-                            </ul>
-                        </div>
+
+                    {/* Giriş Yap Butonu */}
+                    <li>
+                        <Link
+                            href="/login"
+                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition duration-200"
+                        >
+                            Giriş Yap
+                        </Link>
                     </li>
+
+
                 </div>
             </ul>
         </nav>

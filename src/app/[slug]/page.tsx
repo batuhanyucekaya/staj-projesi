@@ -1,7 +1,14 @@
+import { notFound } from "next/navigation"
 import { getProductsBySlug } from "@/app/lib/db"
 import ProductCard from "@/app/components/products-cards"
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
+    // slug olarak admin veya başka özel route geldiyse bu sayfa çalışmasın
+    const specialRoutes = ["admin"]
+    if (specialRoutes.includes(params.slug.toLowerCase())) {
+        notFound()
+    }
+
     const products = await getProductsBySlug(params.slug)
 
     return (
