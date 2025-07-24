@@ -2,6 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
+import { FiHeart, FiShoppingCart } from "react-icons/fi"
 
 interface ProductCardProps {
   product: {
@@ -15,18 +16,31 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <Link href={`/product/${product.id}`}>
-      <div className="bg-gray-800 rounded-lg p-4 shadow-md hover:shadow-xl transition-all cursor-pointer">
-        <img
-          src={product.resim_url}
-          alt={product.isim}
-          className="w-full h-40 object-cover rounded"
-        />
-        <h2 className="text-lg font-semibold mt-2 text-white">{product.isim}</h2>
-        <p className="text-sm text-gray-400 line-clamp-2">{product.aciklama}</p>
-        <p className="text-green-400 font-bold mt-2">{product.fiyat} ₺</p>
+    <div className="bg-[#004466] text-white p-4 rounded-md shadow-md transition duration-300 hover:bg-[#006699] hover:text-yellow-200 relative">
+      {/* Favori ve Sepet İkonları */}
+      <div className="absolute top-2 right-2 flex gap-2">
+        <button className="text-white hover:text-red-500">
+          <FiHeart size={20} />
+        </button>
+        <button className="text-white hover:text-green-400">
+          <FiShoppingCart size={20} />
+        </button>
       </div>
-    </Link>
+
+      {/* Ürün Bilgisi Link */}
+      <Link href={`/product/${product.id}`}>
+        <div className="cursor-pointer">
+          <img
+            src={product.resim_url}
+            alt={product.isim}
+            className="w-full h-40 object-contain rounded bg-white p-2"
+          />
+          <h2 className="text-lg font-semibold mt-2">{product.isim}</h2>
+          <p className="text-sm text-gray-300 line-clamp-2">{product.aciklama}</p>
+          <p className="text-green-400 font-bold mt-2">{product.fiyat} ₺</p>
+        </div>
+      </Link>
+    </div>
   )
 }
 

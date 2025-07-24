@@ -2,7 +2,9 @@
 
 import { useState } from "react"
 import AdminNavbar from "../components/admin-navbar"
-import UrunEkleFormu from "../admin/urun-ekle"
+import UrunGuncelleFormu from "../../app/admin/urun-guncelle/page"
+import UrunEkleFormu from "../../app/admin/urun-ekle/page"
+import Musteriler from "./musteriler/page"
 
 export default function AdminPage() {
     const [section, setSection] = useState("")
@@ -13,11 +15,9 @@ export default function AdminPage() {
 
             <div className="p-6 text-white flex-1">
                 <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
-
-                {/* Seçilen menüye göre gösterim */}
-                {section === "Ürün Ekle" && <UrunEkleFormu />}
-                {section === "Ürün Güncelle" && <p>Güncelleme Formu gelecek</p>}
-                {section === "Müşteri Bilgileri" && <p>Müşteri bilgileri tablosu gelecek</p>}
+                {section === "urun-ekle" && <UrunEkleFormu />}
+                {section === "urun-guncelle" && <UrunGuncelleFormu />}
+                {section === "musteriler" && <Musteriler />}
             </div>
         </div>
     )

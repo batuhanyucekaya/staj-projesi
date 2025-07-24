@@ -66,3 +66,14 @@ export async function getProductsBySlug(slug: string) {
     const { rows } = await pool.query(query, [altKategoriId])
     return rows
 }
+
+// Rastgele ürünleri getir (3 adet)
+export async function getRandomDiscountedProducts(limit: number = 3) {
+    const query = `
+        SELECT * FROM urunler
+        ORDER BY RANDOM()
+        LIMIT $1
+    `
+    const { rows } = await pool.query(query, [limit])
+    return rows
+}

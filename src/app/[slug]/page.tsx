@@ -3,7 +3,7 @@ import { getProductsBySlug } from "@/app/lib/db"
 import ProductCard from "@/app/components/products-cards"
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
-    // slug olarak admin veya başka özel route geldiyse bu sayfa çalışmasın
+
     const specialRoutes = ["admin"]
     if (specialRoutes.includes(params.slug.toLowerCase())) {
         notFound()
@@ -12,7 +12,9 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     const products = await getProductsBySlug(params.slug)
 
     return (
+
         <div className="p-6 text-white">
+
             <h1 className="text-2xl font-bold mb-4">
                 Category: {params.slug.replace(/-/g, " ")}
             </h1>
